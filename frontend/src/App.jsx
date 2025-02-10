@@ -1,15 +1,17 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import servers from "./pages/servers";
-import dashboard from "./pages/dashboard";
+import Servers from "./pages/Servers";
+import Dashboard from "./pages/Dashboard";
+import Idle from "./pages/idle";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/servers" Component={servers}></Route>
-          <Route path="/home" Component={dashboard}></Route>
+          <Route path="/" element={<Idle />} />
+          <Route path="/servers" element={<Servers />} />
+          <Route path="/home" element={<Dashboard />} />
         </Routes>
       </Router>
     </>
