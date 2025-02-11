@@ -1,5 +1,4 @@
 import Sidebar from "../components/ui/Sidebar";
-import "react";
 import LottieAnimation from "../components/ui/LottieAnimation";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,17 +13,15 @@ const Idle = () => {
           Good Afternoon, <span className="text-red-400">Vansh</span> 👋
         </h1>
 
-        <div className="flex justify-center  items-center w-full h-[250px]">
+        <div className="flex justify-center items-center w-full h-[250px]">
           <LottieAnimation />
         </div>
 
         <Link to="/servers">
-          {" "}
-          <h2 className="text-gray-300 font-bold cursor-pointer mt-9 text-2xl ml-3  px-7 py-3 bg-gray-800 bg-opacity-50 rounded-lg shadow-md">
-            <div className="flex gap-1">
-              <Search className="mr-2 mt-1.5" /> Select a Server to Check Chats
-            </div>
-          </h2>
+          <button className="text-gray-300 font-bold cursor-pointer mt-9 text-2xl px-7 py-3 bg-gray-800 rounded-lg shadow-md flex items-center gap-2">
+            <Search className="w-6 h-6" />
+            Select a Server to Check Chats
+          </button>
         </Link>
       </div>
     </div>

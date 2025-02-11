@@ -3,6 +3,8 @@ import "react";
 import { useState } from "react";
 import Clubs from "./Clubs";
 import ClubPicStyle from "./ClubPicStyle";
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -13,14 +15,14 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     alert("Do You want to Logout?");
-    alert("Logged Out!")
+    alert("Logged Out!");
   };
 
   return (
     <div>
       <div
         className={`bg-gray-800  bg-opacity-75 backdrop-blur-md h-screen overflow-hidden transition-all duration-500 ease-out ${
-          sidebar ? "w-[300px]" : "w-[110px]"
+          sidebar ? "w-[300px]" : "w-[115px]"
         }`}
       >
         <div className="p-3 m-2">
@@ -33,18 +35,27 @@ const Sidebar = () => {
         </div>
 
         {sidebar ? (
-          <div className="clubnames clubs max-h-[550px] overflow-y-scroll hide-scrollbar">
-            {Clubs.map((club) => (
-              <div
-                key={club.id}
-                className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-all"
-              >
-                <div className="text-white text-lg font-medium">
-                  {club.clubname}
+          <>
+            <div className="clubnames clubs max-h-[550px] overflow-y-scroll hide-scrollbar">
+              <Link to="/servers">
+                <div className="m-4 flex items-center justify-center gap-2 px-6 py-3 rounded-lg shadow-md bg-gray-900 text-gray-300 font-semibold text-lg hover:bg-gray-700 hover:text-white transition-all duration-300 transform hover:scale-105">
+                  <Plus className="w-6 h-6" />
+                  <span>Find more Servers</span>
                 </div>
-              </div>
-            ))}
-          </div>
+              </Link>
+
+              {Clubs.map((club) => (
+                <div
+                  key={club.id}
+                  className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-all"
+                >
+                  <div className="text-white text-lg font-medium">
+                    {club.clubname}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
           <ClubPicStyle />
         )}
