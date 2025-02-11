@@ -1,15 +1,33 @@
 import Sidebar from "../components/ui/Sidebar";
 import "react";
+import LottieAnimation from "../components/ui/LottieAnimation";
+import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Idle = () => {
   return (
-    <>
-      <div className="cont flex flex-wrap gap-3.5 bg-gray-900 bg-opacity-75 backdrop-blur-md min-h-screen">
-        <Sidebar />
+    <div className="flex min-h-screen bg-gray-900 bg-opacity-75 backdrop-blur-md">
+      <Sidebar />
 
-        <h1 className="text-white text-4xl p-8 m-4">This is Idle Screen</h1>
+      <div className="flex flex-col items-center justify-center flex-grow text-center space-y-8">
+        <h1 className="text-white text-5xl font-bold">
+          Good Afternoon, <span className="text-red-400">Vansh</span> 👋
+        </h1>
+
+        <div className="flex justify-center  items-center w-full h-[250px]">
+          <LottieAnimation />
+        </div>
+
+        <Link to="/servers">
+          {" "}
+          <h2 className="text-gray-300 font-bold cursor-pointer mt-9 text-2xl ml-3  px-7 py-3 bg-gray-800 bg-opacity-50 rounded-lg shadow-md">
+            <div className="flex gap-1">
+              <Search className="mr-2 mt-1.5" /> Select a Server to Check Chats
+            </div>
+          </h2>
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
 

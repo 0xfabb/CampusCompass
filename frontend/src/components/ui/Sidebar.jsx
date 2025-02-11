@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { LogOut, Menu, Sun } from "lucide-react";
 import "react";
 import { useState } from "react";
 import Clubs from "./Clubs";
@@ -9,6 +9,11 @@ const Sidebar = () => {
 
   const SideToggle = () => {
     setSidebar((prevValue) => !prevValue);
+  };
+
+  const handleLogout = () => {
+    alert("Do You want to Logout?");
+    alert("Logged Out!")
   };
 
   return (
@@ -28,22 +33,32 @@ const Sidebar = () => {
         </div>
 
         {sidebar ? (
-          <div className="clubnames">
+          <div className="clubnames clubs max-h-[550px] overflow-y-scroll hide-scrollbar">
             {Clubs.map((club) => (
               <div
                 key={club.id}
-                style={{ opacity: sidebar ? "1" : "0" }}
-                className="clubs text-white text-xl m-2 ml-4"
+                className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-all"
               >
-                {club.clubname}
+                <div className="text-white text-lg font-medium">
+                  {club.clubname}
+                </div>
               </div>
             ))}
           </div>
         ) : (
-          <>
-            <ClubPicStyle />
-          </>
+          <ClubPicStyle />
         )}
+
+        <div
+          className={`p-4 m-4 flex items-center ${
+            sidebar ? "flex-row space-x-4" : "flex-col space-y-4"
+          }`}
+        >
+          <Sun className="text-white w-8 h-8 -ml-1.5 cursor-pointer hover:text-yellow-400 transition-all" />
+          <button onClick={handleLogout}>
+            <LogOut className="text-red-600 w-8 h-8 cursor-pointer hover:text-gray-300 transition-all" />
+          </button>
+        </div>
       </div>
     </div>
   );
