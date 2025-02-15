@@ -1,12 +1,12 @@
 const Clubs = [
   {
-    id: 2,
+    id: 1,
     clubname: "College Official Server",
     Description:
       "The central hub for all college-related discussions, announcements, and student interactions. Stay updated with events, academic resources, and campus activities.",
   },
   {
-    id: 1,
+    id: 2,
     clubname: "ECE Department Server",
     Description:
       "A dedicated space for Electronics and Communication Engineering students to discuss coursework, projects, research, and industry trends. Connect with peers, faculty, and alumni.",
