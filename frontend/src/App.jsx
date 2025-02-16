@@ -2,15 +2,17 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Servers from "./pages/Servers";
 import Idle from "./pages/Idle";
-import Server  from "./pages/Server"; // Corrected
+import Server  from "./pages/Server";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Idle />} />
+        <Route path="/" element={<LandingPage />} /> 
+        <Route path="/home" element={<Idle />} />
         <Route path="/servers" element={<Servers />} />
-        <Route path="/server/:serverId" element={<Server />} /> {/* Corrected */}
+        <Route path="/server/:serverId" element={<Server />} /> 
       </Routes>   
     </Router>
   );
