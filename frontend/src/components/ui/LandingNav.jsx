@@ -7,16 +7,16 @@ const LandingNav = () => {
         </div>
 
         <ul className="flex gap-8  text-white text-lg font-medium flex-grow justify-center">
-          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-red-500 transition duration-200">
+          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
             Home
           </li>
-          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-red-500 transition duration-200">
+          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
             Features
           </li>
-          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-red-500 transition duration-200">
+          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
             Explore
           </li>
-          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-red-500 transition duration-200">
+          <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
             Services
           </li>
         </ul>

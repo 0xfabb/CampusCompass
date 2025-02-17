@@ -5,5 +5,7 @@
 
 @theme {
     --font-primary: "Nunito", sans-serif;
-    /* ... */
+    
+  --color-dark-1: rgb(18 18 18);   /* ... */
+  --color-dark-2: rgb(40 40 40);   /* ... */
   }
