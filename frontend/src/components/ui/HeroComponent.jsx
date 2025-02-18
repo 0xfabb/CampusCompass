@@ -1,9 +1,12 @@
+import Screen1 from "../../assets/Screen2.png";
+
+
 const HeroSection = () => {
   return (
     <section>
       <div className="mx-auto max-w-7xl px-6 py-18 flex flex-col-reverse items-center gap-8 md:flex-row md:justify-between">
         <div className="w-full md:w-1/2 space-y-6">
-          <h1 className="text-4xl font-bold text-blue-400 sm:text-5xl">
+          <h1 className="text-4xl font-bold text-red-400 sm:text-5xl">
             The best campus platform <br className="hidden sm:block" />
             for students and teams
           </h1>
@@ -14,7 +17,7 @@ const HeroSection = () => {
             networking opportunities – all in one place.
           </p>
           <div className="mt-4">
-            <button className="bg-gray-800 border-white border-[1px] mt-6 text-xl font-primary font-normal  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
+            <button className="bg-gradient-to-r font-primary font-bold from-red-700 to-pink-900 border-white border-[1px] mt-6 text-xl  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
               Get Started
             </button>
           </div>
@@ -23,9 +26,9 @@ const HeroSection = () => {
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
           <div className="relative w-full max-w-md">
             <img
-              src="https://cdn.hashnode.com/res/hashnode/image/upload/v1726218478458/e882a517-6e30-40bf-9a25-4ca273deda87.png?auto=format"
+              src= {Screen1}
               alt="CampusCompass Screenshot"
-              className="rounded-xl shadow-2xl"
+              className="rounded-xl shadow-2xl "
             />
           </div>
         </div>

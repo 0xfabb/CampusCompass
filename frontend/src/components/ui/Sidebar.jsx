@@ -21,7 +21,7 @@ const Sidebar = () => {
   return (
     <div>
       <div
-        className={`bg-gray-800  bg-opacity-75 backdrop-blur-md h-screen overflow-hidden transition-all duration-500 ease-out ${
+        className={`bg-dark-1  bg-opacity-75 backdrop-blur-md h-screen overflow-hidden transition-all duration-500 ease-out ${
           sidebar ? "w-[300px]" : "w-[115px]"
         }`}
       >
@@ -38,7 +38,7 @@ const Sidebar = () => {
           <>
             <div className="clubnames clubs max-h-[550px] overflow-y-scroll hide-scrollbar">
               <Link to="/servers">
-                <div className="m-4 flex items-center justify-center gap-2 px-6 py-3 rounded-lg shadow-md bg-gray-900 text-gray-300 font-semibold text-lg hover:bg-gray-700 hover:text-white transition-all duration-300 transform hover:scale-105">
+                <div className="m-4 flex items-center justify-center gap-2 px-6 py-3 rounded-lg shadow-md bg-dark-2 text-gray-300 font-semibold text-lg hover:bg-dark-3 hover:text-white transition-all duration-300 transform hover:scale-105">
                   <Plus className="w-6 h-6" />
                   <span>Find more Servers</span>
                 </div>
@@ -46,7 +46,7 @@ const Sidebar = () => {
 
               {Clubs.map((club) => (
                 <Link key={club.id} to={`/server/${club.id}`}>
-                  <div className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-all">
+                  <div className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-dark-3 transition-all">
                     <div className="text-white text-lg font-medium">
                       {club.clubname}
                     </div>

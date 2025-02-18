@@ -16,7 +16,7 @@ const FollowButton = () => {
   return (
     <div>
       <button
-        className="btn relative py-2 px-4 bg-gradient-to-r from-red-500 to-red-700 hover:from-red-700 hover:to-red-900 w-36 h-12 rounded-2xl cursor-pointer text-white text-center font-bold shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+        className="btn relative py-2 px-4 border-white border-[1px] bg-gradient-to-r from-red-500 to-red-700 hover:from-red-700 hover:to-red-900 w-36 h-12 rounded-2xl cursor-pointer text-white text-center font-bold shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
         onClick={FollowToggle}
       >
        <h3 className="text-sm">{follow ? "Leave Server" : "Join Server"}</h3>

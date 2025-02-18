@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Idle = () => {
   return (
-    <div className="flex min-h-screen bg-gray-900 bg-opacity-75 backdrop-blur-md">
+    <div className="flex min-h-screen bg-dark-2 bg-opacity-75 backdrop-blur-md">
       <Sidebar />
 
       <div className="flex flex-col items-center justify-center flex-grow text-center space-y-8">
@@ -18,7 +18,7 @@ const Idle = () => {
         </div>
 
         <Link to="/servers">
-          <button className="text-gray-300 font-bold cursor-pointer mt-9 text-2xl px-7 py-3 bg-gray-800 rounded-lg shadow-md flex items-center gap-2">
+          <button className="text-gray-300 font-bold cursor-pointer mt-9 text-2xl px-7 py-3 bg-dark-1 rounded-lg shadow-md flex items-center gap-2">
             <Search className="w-6 h-6" />
             Select a Server to Check Chats
           </button>

@@ -7,7 +7,7 @@ function ServerDetails() {
 
   return (
     <>
-    <div className="flex  bg-gray-900 bg-opacity-75 backdrop-blur-md">
+    <div className="flex  bg-dark-2 bg-opacity-75 backdrop-blur-md">
         <Sidebar />
     <div className="server-details  text-white p-6">
       <h1 className="text-2xl font-bold">Server: {serverId}</h1>

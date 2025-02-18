@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 
 const Dashboard = () => {
   return (
-    <div className="bg-gray-900 bg-opacity-75 backdrop-blur-md  h-screen flex">
+    <div className="bg-dark-2 bg-opacity-75 backdrop-blur-md  h-screen flex">
       <Sidebar />
 
       <div className="flex-1 flex  flex-col items-center overflow-y-scroll hide-scrollbar p-6">
@@ -14,7 +14,7 @@ const Dashboard = () => {
           <input
             type="search"
             placeholder="Search Server"
-            className="w-full h-12 px-12 py-3 text-white bg-gray-800 border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full h-12 px-12 py-3 text-white bg-dark-1 border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
           />
         </div>
 

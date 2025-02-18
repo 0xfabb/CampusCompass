@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 const LandingNav = () => {
   return (
     <div>
@@ -8,7 +10,7 @@ const LandingNav = () => {
 
         <ul className="flex gap-8  text-white text-lg font-medium flex-grow justify-center">
           <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
-            Home
+            <Link to="/home">Home</Link>
           </li>
           <li className="mt-1 font-primary font-bold cursor-pointer hover:text-yellow-500 hover:animate-bounce transition duration-200">
             Features
@@ -21,7 +23,7 @@ const LandingNav = () => {
           </li>
         </ul>
 
-        <button className="bg-gradient-to-r font-primary font-bold from-blue-500 to-purple-600 px-6 py-2 text-white  rounded-full cursor-pointer hover:bg-gradient-to-l transition-all duration-200 hover:from-purple-600 hover:to-blue-500">
+        <button className="bg-gradient-to-r font-primary font-bold from-red-700 to-pink-900 px-6 py-2 text-white  rounded-full cursor-pointer hover:bg-gradient-to-l transition-all duration-200 hover:from-red-700 hover:to-pink-900">
           Sign Up
         </button>
       </div>
