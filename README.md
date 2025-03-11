@@ -1,3 +1,5 @@
+# Took a Break due to exams, now will resume the project from tomorrow 
+
 # CampusCompass
 
 ## 🚀 About the Project
