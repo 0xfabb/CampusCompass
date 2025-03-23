@@ -20,7 +20,7 @@ const LandingPage = () => {
               networking opportunities - all in one place.
             </p>
             <div className="flex mt-4 gap-9 justify-center">
-              <button className="bg-gradient-to-r from-red-700 to-pink-900 border-white border-[1px] mt-6 text-xl font-primary font-normal  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
+              <button className="bg-gradient-to-r  transform hover:scale-115 from-red-700 to-pink-900 border-white border-[1px] mt-6 text-xl font-primary font-normal  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
                 Get Started
               </button>
               <button className="border-[1px] hover:underline transition-all duration-700 border-white mt-6 text-xl font-primary font-normal px-8 py-2 text-white  rounded-full cursor-pointer ">
