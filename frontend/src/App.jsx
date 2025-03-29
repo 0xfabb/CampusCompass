@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Servers from "./pages/Servers";
+import Servers from "./pages/servers";
 import Idle from "./pages/Idle";
 import Server from "./pages/Server";
 import LandingPage from "./pages/LandingPage";

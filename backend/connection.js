@@ -1,7 +1,21 @@
-const express = require('express');
+const { MongoClient } = require("mongodb");
 
-const mongoose = require('mongoose');
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
+let db;
 
-const connectToMongoDB = mongoose.connect('mongodb://localhost:27017/college');
+async function connectToMongoDb() {
+    try {
+        if (!db) {
+            await client.connect();
+            console.log("Connected to MongoDB");
+            db = client.db("ServersData"); // Store DB instance globally
+        }
+        return db;
+        
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+    }
+}
 
-export default connectToMongoDB;
+module.exports = connectToMongoDb;
