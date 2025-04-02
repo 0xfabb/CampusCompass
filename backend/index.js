@@ -1,36 +1,30 @@
-const express = require("express");
-const homeRoute = require("./routes/home");
-const dataRoute = require("./routes/data")
-const cors = require("cors");
-require('dotenv').config();
-const connectToMongoDb = require("./connection");
+import express from "express";
+import connectDB from "./config/db.js";
+import homeRoute from "./routes/home.js";
+import serverRoute from "./routes/club.js";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+connectDB();
 
 const requestCounts = {};
 
 app.use((req, res, next) => {
-    const route = req.path;
-    requestCounts[route] = (requestCounts[route] || 0) + 1;
-    console.log(`Route: ${route} | Request Count: ${requestCounts[route]}`);
-    next();
+  const route = req.path;
+  requestCounts[route] = (requestCounts[route] || 0) + 1;
+  console.log(`Route: ${route} | Request Count: ${requestCounts[route]}`);
+  next();
 });
 
-// Initialize MongoDB connection before starting the server
- connectToMongoDb().then((db) => {
-    if (!db) {
-        console.error("Failed to connect to MongoDB");
-        process.exit(1);
-    }
+app.use("/", homeRoute);
+// app.use((req, res) => {
+//   res.status(404).json({ error: "Route not found" });
+// });
+app.use("/api", serverRoute);
 
-    
-    app.locals.db = db;
-
-    app.use("/", homeRoute);
-    app.use("/server", homeRoute);
-    app.use("/data", dataRoute);
-
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
