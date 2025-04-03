@@ -1,7 +1,7 @@
 
 
 # CampusCompass
-ading files
+
 
 ##  About the Project
 CampusCompass is an open-source student-centric platform designed to enhance campus engagement by providing club updates, event management, announcements, and more. Originally built for JSS students, it has now evolved into a general-purpose college community tool.
