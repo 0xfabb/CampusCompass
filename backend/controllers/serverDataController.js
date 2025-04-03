@@ -1,46 +1,64 @@
 import Club from "../models/Club.js";
-import extractedServerId from "../routes/club.js";
+import {
+  addClubSchema,
+  getClubSchema,
+} from "../validations/clubVerification.js";
 
-
-const addserverControl = async (req, res) => {
-    const clubdetails = req.body;
-    const newClub = await Club.create(clubdetails);
-    console.log(
-      `Club with these details have been added to the database - ${JSON.stringify(
-        newClub,
-        null,
-        2
-      )}`
-    );
-    res.json({
-      msg: "Added the club",
-    });
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-async (req, res) => {
-  const id = extractedServerId;
-
+export const addserverControl = async (req, res) => {
   try {
-    const server = Club.findById(id);
-    if (!server) {
-      console.log("There is no such Server");
-    } else {
-      console.log("Server with this id is found - ", server);
+    const validatedClub = addClubSchema.safeParse(req.body);
+    if (!validatedClub.success) {
+      return res.status(400).json({ error: validatedClub.error.errors });
     }
-  } catch {}
+
+    const lastclub = await Club.findOne().sort({ id: -1 });
+    const newId = lastclub ? lastclub.id + 1 : 1;
+    const newClub = await Club.create({ id: newId, ...validatedClub.data });
+    res.status(201).json({ msg: "Club added successfully", club: newClub });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.errors ? error.errors : error.message });
+  }
 };
-export default serverDataController;
+
+export const getserverdataControl = async (req, res) => {
+  try {
+    const validatedClubdetails = getClubSchema.safeParse({
+      serverId: Number(req.query["server"]),
+    });
+    if (!validatedClubdetails.success) {
+      return res
+        .status(400)
+        .json("Server id provided does not match any server");
+    }
+    const clubdetails = await Club.findOne({
+      id: validatedClubdetails.data.serverId,
+    });
+
+    if (!clubdetails) {
+      return res.status(404).json({ error: "Club not found" });
+    }
+
+    res.json({ ServerDetails: clubdetails });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.errors ? error.errors : error.message });
+  }
+};
+
+export const getserversearchcontrol = async (req, res) => {
+  const searchServerName = req.query["name"];
+  try {
+    const fetchedServer = await Club.findOne({ clubName: searchServerName });
+    if (!fetchedServer) {
+      return res.status(404).json({ error: "Club not found" });
+    }
+    res.json({ ServerDetails: fetchedServer });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.errors ? error.errors : error.message });
+  }
+};
