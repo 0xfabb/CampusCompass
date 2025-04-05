@@ -2,15 +2,21 @@ import express from "express";
 import connectDB from "./config/db.js";
 import homeRoute from "./routes/home.js";
 import serverRoute from "./routes/club.js";
+import ccRoute from "./routes/ccpart.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  credentials: true,
+}));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
+app.use(cookieParser())
+app.use(express.urlencoded({ extended: false }));
 connectDB();
+
 
 const requestCounts = {};
 
@@ -22,10 +28,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/", homeRoute);
-// app.use((req, res) => {
-//   res.status(404).json({ error: "Route not found" });
-// });
 app.use("/api", serverRoute);
+app.use("/api", ccRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
