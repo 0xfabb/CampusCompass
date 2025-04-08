@@ -79,3 +79,4 @@ export const ccdatacontrol = async (req, res) => {
     res.status(401).json({ msg: "No Class Coordinator is Registered" });
   }
 };
+
