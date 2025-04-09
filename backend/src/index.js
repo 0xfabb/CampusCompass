@@ -4,6 +4,7 @@ import homeRoute from "./routes/home.js";
 import serverRoute from "./routes/club.js";
 import ccRoute from "./routes/ccpart.js";
 import authControlRoute from "./routes/ccfetch.js";
+import sendChatRoute from "./routes/sendChat.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -33,6 +34,7 @@ app.use("/", homeRoute);
 app.use("/api", serverRoute);
 app.use("/api", ccRoute);
 app.use("/api/authcontrol", authControlRoute);
+app.use("/api/chat", sendChatRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));

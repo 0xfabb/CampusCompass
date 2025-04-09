@@ -1,4 +1,4 @@
-import ClassCoordinator from "../models/CCmodel.js";
+import ClassCoordinator from "../models//CCmodel.js";
 import { classCoordinatorSchema } from "../validations/ccValidation.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -20,7 +20,7 @@ export const newCC_control = async (req, res) => {
       ...rest,
       password: hashedPassword,
     });
-
+    
     const token = jwt.sign(
       { teacherEmail: newCC.teacherEmail, id: newCC._id },
       jwtsecret,
