@@ -7,32 +7,50 @@ const jwtsecret = "Pheonix";
 
 export const newCC_control = async (req, res) => {
   const newCCdetails = req.body;
+  console.log(newCCdetails);
 
   const newCCparsed = classCoordinatorSchema.safeParse(newCCdetails);
+  console.log(newCCparsed);
   if (!newCCparsed.success) {
-    res.status(401).json({ error: newCCparsed.error.errors });
+    return res.status(400).json({ error: newCCparsed.error.errors });
   }
   try {
     const { password, ...rest } = newCCparsed.data;
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword)
 
     const newCC = await ClassCoordinator.create({
       ...rest,
       password: hashedPassword,
-    });
-    
+      isVerified: false,  
+    });    
+    console.log(newCC);
     const token = jwt.sign(
       { teacherEmail: newCC.teacherEmail, id: newCC._id },
       jwtsecret,
       { expiresIn: "7d" }
     );
+    console.log(token);
+    
+    res.cookie("cc_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.cookie("verifyStatus", newCC.isVerified, {
+      httpOnly: false,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    
     res.status(201).json({
+      success: true,
       msg: "Class Coordinator Sign Up is success!",
-      Token: token,
+      token: token,
       details: newCC,
     });
   } catch (error) {
-    res.status(400).json({ msg: "There is some problem" });
+    return res.status(400).json({ msg: "Error signing up" });
   }
 };
 
@@ -71,6 +89,7 @@ export const ccdatacontrol = async (req, res) => {
     });
 
     res.status(200).json({
+      success: true,
       ccdata: ccdetails,
       token: token,
       verificationStatus: isVerified,

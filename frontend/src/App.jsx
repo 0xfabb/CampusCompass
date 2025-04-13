@@ -7,6 +7,8 @@ import LandingPage from "./pages/LandingPage";
 import AuthDashboard from "./pages/AuthDashboard";
 import CCSignup from "./pages/ccsignup";
 import CCLogin from "./pages/cclogin";
+import CCDashboard from "./pages/CCDashboard";
+import RequireAuth from "./components/CheckAuth";
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
         <Route path="/cclogin" element={<CCLogin />} />
         <Route path="/servers" element={<Servers />} />
         <Route path="/server/:serverId" element={<Server />} />
+        <Route
+          path="/ccdashboard"
+          element={
+            <RequireAuth>
+              <CCDashboard />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </Router>
   );

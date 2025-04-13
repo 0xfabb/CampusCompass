@@ -1,4 +1,3 @@
-import { text } from "express";
 import Chat from "../models/Chatmodel.js";
 import bcrypt from "bcryptjs";
 
@@ -37,7 +36,7 @@ export const getMsgControl = async (req, res) => {
       msg2: unHashedText,
     });
   } catch (err) {
-    res.status(400).json({
+    return res.status(400).json({ 
       msg: "Message is not found",
     });
   }
