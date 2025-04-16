@@ -1,6 +1,8 @@
 import Footer from "../components/ui/Footer";
 import HeroSection from "../components/ui/HeroComponent";
 import LandingNav from "../components/ui/LandingNav";
+import { Link } from "react-router-dom";
+
 
 const LandingPage = () => {
   return (
@@ -20,9 +22,9 @@ const LandingPage = () => {
               networking opportunities - all in one place.
             </p>
             <div className="flex mt-4 gap-9 justify-center">
-              <button className="bg-gradient-to-r  transform hover:scale-115 from-red-700 to-pink-900 border-white border-[1px] mt-6 text-xl font-primary font-normal  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
+             <Link to="/studentsignup"> <button className="bg-gradient-to-r  transform hover:scale-115 from-red-700 to-pink-900 border-white border-[1px] mt-6 text-xl font-primary font-normal  px-8 py-2 text-white  rounded-full cursor-pointer transition-all duration-200 0">
                 Get Started
-              </button>
+              </button> </Link>
               <button className="border-[1px] hover:underline transition-all duration-700 border-white mt-6 text-xl font-primary font-normal px-8 py-2 text-white  rounded-full cursor-pointer ">
                 Learn More
               </button>

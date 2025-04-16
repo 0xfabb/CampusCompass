@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema({
   },
   discordServers: [{
     name: { type: String, required: true },
-    serverId: { type: String, required: true, unique: true },
+    serverId: { type: String, required: true },
     joinDate: { type: Date, default: Date.now },
   }]
 });

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LandingNav = () => {
   return (
@@ -23,9 +23,12 @@ const LandingNav = () => {
           </li>
         </ul>
 
-        <button className="bg-gradient-to-r font-primary font-bold from-red-700 to-pink-900 px-6 py-2 text-white  rounded-full cursor-pointer hover:bg-gradient-to-l transition-all duration-200 hover:from-red-700 hover:to-pink-900">
-          Sign Up
-        </button>
+        <Link to="/studentsignup">
+          {" "}
+          <button className="bg-gradient-to-r font-primary font-bold from-red-700 to-pink-900 px-6 py-2 text-white  rounded-full cursor-pointer hover:bg-gradient-to-l transition-all duration-200 hover:from-red-700 hover:to-pink-900">
+            Sign Up
+          </button>
+        </Link>
       </div>
     </div>
   );

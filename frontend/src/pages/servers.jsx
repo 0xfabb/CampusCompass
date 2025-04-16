@@ -10,6 +10,7 @@ const Servers = () => {
   const [serverName, setServerName] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [serverId, setServerId] = useState();
 
   const resetState = () => {
     setServerDetails(null);
@@ -38,7 +39,7 @@ const Servers = () => {
       );
 
       if (!response.data.ServerDetails) {
-        setLoading(false)
+        setLoading(false);
         setErrorMsg("No club found");
         setServerDetails(null);
         setServerName(null);
@@ -48,11 +49,12 @@ const Servers = () => {
         setLoading(false);
         setServerDetails(response.data.ServerDetails.clubData);
         setServerName(response.data.ServerDetails.clubName);
+        setServerId(response.data.ServerDetails.id);
       }, 1000);
     } catch (error) {
       console.error("Error fetching club data:", error);
       setErrorMsg("Failed to fetch club details.");
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -106,7 +108,7 @@ const Servers = () => {
               </div>
 
               <div className="mt-4 flex justify-end">
-                <FollowButton />
+                <FollowButton serverId={serverId} name={serverName} />
               </div>
             </div>
           </div>

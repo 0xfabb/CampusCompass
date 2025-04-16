@@ -2,9 +2,9 @@ import Student from "../models/Student.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-
 const JWT_SECRET = "Pheonix";
 
+let firstClass = 12;
 export const studentSignUpControl = async (req, res) => {
   try {
     const studentDetails = req.body;
@@ -18,6 +18,7 @@ export const studentSignUpControl = async (req, res) => {
       department,
       class: className,
     } = studentDetails;
+    console.log(studentDetails);
     const existingUser = await Student.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already in use." });
@@ -25,10 +26,13 @@ export const studentSignUpControl = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const newId = firstClass++;
+
+
     const defaultServer = {
-        name: `${department} - ${className}`, // Ex: ECE - A2
-        serverId: `${department.toLowerCase()}-${className.toLowerCase()}`, // Ex: ece-a2
-      };
+      name: `${department} - ${className}`,
+      serverId: newId, 
+    };
 
     const newStudent = new Student({
       fullname: fullname,
@@ -36,18 +40,29 @@ export const studentSignUpControl = async (req, res) => {
       password: hashedPassword,
       department: department,
       class: className,
-      discordServers: [defaultServer]
+      discordServers: [defaultServer],
     });
 
     await newStudent.save();
+    console.log(newStudent);
     const token = jwt.sign(
       { id: newStudent._id, email: newStudent.email },
       JWT_SECRET,
       { expiresIn: "7d" }
     );
+
+    console.log(token);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // only over HTTPS in prod
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     res.status(201).json({
       message: "Student registered successfully.",
-      detaials: studentDetails,
+      details: studentDetails,
       token: token,
     });
   } catch (err) {
@@ -72,6 +87,14 @@ export const studentLoginControl = async (req, res) => {
       JWT_SECRET,
       { expiresIn: "7d" }
     );
+    console.log(token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // only over HTTPS in prod
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     return res.status(200).json({
       message: "Login successful.",
       student: {

@@ -5,25 +5,30 @@ import { useState } from "react";
 import ClubPicStyle from "./ClubPicStyle";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
-  const [clubs, setClubs] = useState();
+  const [clubs, setClubs] = useState([]);
   const [id, setId] = useState();
+
+  const navigate = useNavigate();
 
   const getClubs = () => {
     axios
-      .get("http://localhost:3000/api/serverdata")
+      .get("http://localhost:3000/api/student/followed", {
+        withCredentials: true,
+      })
       .then((Response) => {
-        setClubs(Response.data.ServerDetails.clubNames)
-        setId(Response.data.ServerDetails.id)
+        setClubs(Response.data.followedServers);
+        setId(Response.data.followedServers[0].serverId); // assuming `serverId` is the unique id
       })
       .catch((err) => console.log("An error while fetching clubs", err));
   };
 
   const SideToggle = () => {
     setSidebar((prevValue) => !prevValue);
-    getClubs()
+    getClubs();
   };
 
   const handleLogout = () => {
@@ -31,7 +36,10 @@ const Sidebar = () => {
     alert("Logged Out!");
   };
 
- 
+const logoutControl = () => {
+  navigate("/studentlogin")
+}
+
 
   return (
     <div>
@@ -59,15 +67,15 @@ const Sidebar = () => {
                 </div>
               </Link>
 
-              
-                <Link to={`/server/${id}`}>
+              {clubs.map((club, index) => (
+                <Link to={`/server/${club.serverId}`} key={index}>
                   <div className="max-h-[550px] overflow-y-scroll hide-scrollbar overflow-x-hidden scroll-m-2 flex items-center p-3 mx-2 rounded-lg cursor-pointer hover:bg-dark-3 transition-all">
                     <div className="text-white text-lg font-medium">
-                     {clubs}
+                      {club.name}
                     </div>
                   </div>
                 </Link>
-           
+              ))}
             </div>
           </>
         ) : (
@@ -80,7 +88,7 @@ const Sidebar = () => {
         >
           <Sun className="text-white w-8 h-8 -ml-1.5 cursor-pointer hover:text-yellow-400 transition-all" />
           <button onClick={handleLogout}>
-            <LogOut className="text-red-600 w-8 h-8 cursor-pointer hover:text-gray-300 transition-all" />
+            <LogOut onClick={logoutControl} className="text-red-600 w-8 h-8 cursor-pointer hover:text-gray-300 transition-all" />
           </button>
         </div>
       </div>

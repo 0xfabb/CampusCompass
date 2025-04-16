@@ -53,11 +53,15 @@ export const getFollowControl = async (req, res) => {
     }
     const email = decoded.email;
     const student = await Student.findOne({ email });
+    console.log(student.fullname);
+    console.log(student.discordServers);
+    
     if (!student) {
       return res.status(404).json({ message: "Student not found." });
     }
     res.status(200).json({
       followedServers: student.discordServers,
+      name: student.fullname,
     });
   } catch (err) {
     return res.status(500).json("Server Error");
