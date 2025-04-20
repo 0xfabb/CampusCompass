@@ -12,12 +12,10 @@ const CCSignup = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post("http://localhost:3000/api/ccsignup", data);
-  
-      // Check if the success flag exists in the response
+
       if (response.data.success) {
-        navigate("/cclogin"); // Redirect to login page after successful signup
+        navigate("/cclogin"); 
       } else {
-        // Handle any error messages if 'success' is false
         setError(response.data.message || "Something went wrong");
       }
     } catch (err) {

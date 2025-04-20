@@ -16,7 +16,7 @@ const CCLogin = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/ccdata",
+        "http://localhost:3000/api/cclogin",
         data,
         { withCredentials: true }
       );

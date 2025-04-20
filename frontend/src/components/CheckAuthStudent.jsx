@@ -9,14 +9,15 @@ const CheckAuthStudent = ({ children }) => {
   useEffect(() => {
     const checkStudentAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/student/check-auth-student", {
+        const res = await axios.get("http://localhost:3000/api/student/followed", {
           withCredentials: true,
         });
 
-        if (!res.status === 200) {
+        if (res.status !== 200) 
+          {
           navigate("/studentlogin");
         } else {
-          setAuthChecked(true); // Auth is valid, proceed with rendering children
+          setAuthChecked(true); 
         }
       } catch (err) {
         console.error("Student auth check failed:", err);
@@ -27,12 +28,12 @@ const CheckAuthStudent = ({ children }) => {
     checkStudentAuth();
   }, [navigate]);
 
-  // If auth check is still in progress, don't render anything (or a loading indicator)
+  
   if (!authChecked) {
     return <div>Loading...</div>;
   }
 
-  // Render children only after successful auth check
+  
   return children;
 };
 

@@ -1,10 +1,40 @@
 import Footer from "../components/ui/Footer";
 import HeroSection from "../components/ui/HeroComponent";
 import LandingNav from "../components/ui/LandingNav";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const LandingPage = () => {
+
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkStudentAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:3000/api/student/check-auth-student",
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.status == 200) {
+          navigate("/home");
+        } else {
+          navigate("/");
+        }
+      } catch (err) {
+        console.error("Student auth check failed:", err);
+        navigate("/");
+      }
+    };
+    checkStudentAuth();
+  }, [navigate]);
+
+
   return (
     <div className="overflow-hidden hide-scrollbar">
       <LandingNav />

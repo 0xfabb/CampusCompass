@@ -1,16 +1,40 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { useState, } from "react";
+import { useState, useEffect } from "react";
 
 const StudentLogin = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkStudentAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:3000/api/student/check-auth-student",
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.status !== 200) {
+          navigate("/studentlogin");
+        } else {
+          navigate("/home");
+        }
+      } catch (err) {
+        console.error("Student auth check failed:", err);
+        navigate("/studentlogin");
+      }
+    };
+    checkStudentAuth();
+  }, [navigate]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const onSubmit = async (data) => {
@@ -21,7 +45,6 @@ const StudentLogin = () => {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        
         navigate("/home");
       }
     } catch (err) {

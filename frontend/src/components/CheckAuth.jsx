@@ -11,8 +11,10 @@ const RequireAuth = ({ children }) => {
         const res = await axios.get("http://localhost:3000/api/check-auth", {
           withCredentials: true,
         });
-        if (!res.data.auth) {
-          navigate("/cclogin");
+        if (res.status == 200) {
+          navigate("/ccdashboard");
+        }else{
+          navigate("/cclogin")
         }
       } catch (err) {
         navigate("/cclogin");

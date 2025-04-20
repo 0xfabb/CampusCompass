@@ -1,7 +1,8 @@
 import Student from "../models/Student.js";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "Pheonix";
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
+console.log("The secret was found and it is - ", JWT_SECRET);
 
 export const addFollowControl = async (req, res) => {
   try {

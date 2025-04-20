@@ -2,7 +2,8 @@ import Student from "../models/Student.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "Pheonix";
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
+console.log("The secret was found and it is - ", JWT_SECRET);
 
 let firstClass = 12;
 export const studentSignUpControl = async (req, res) => {
@@ -28,10 +29,9 @@ export const studentSignUpControl = async (req, res) => {
 
     const newId = firstClass++;
 
-
     const defaultServer = {
       name: `${department} - ${className}`,
-      serverId: newId, 
+      serverId: newId,
     };
 
     const newStudent = new Student({
@@ -90,7 +90,7 @@ export const studentLoginControl = async (req, res) => {
     console.log(token);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // only over HTTPS in prod
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -109,5 +109,26 @@ export const studentLoginControl = async (req, res) => {
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+export const logoutStudentControl = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    console.log("This is the logout fetched token - ", token);
+    if (!token) {
+      return res.status(400).json({ message: "No token found to clear" });
+    }
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", 
+    });
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Logout error:", err);
+    return res
+      .status(500)
+      .json({ message: "Logout failed due to server error" });
   }
 };

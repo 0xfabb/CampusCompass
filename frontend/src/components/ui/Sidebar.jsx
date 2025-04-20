@@ -1,4 +1,4 @@
-import { LogOut, Menu, Sun } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import "react";
 import axios from "axios";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const Sidebar = () => {
       })
       .then((Response) => {
         setClubs(Response.data.followedServers);
-        setId(Response.data.followedServers[0].serverId); // assuming `serverId` is the unique id
+        setId(Response.data.followedServers[0].serverId);
       })
       .catch((err) => console.log("An error while fetching clubs", err));
   };
@@ -31,15 +31,18 @@ const Sidebar = () => {
     getClubs();
   };
 
-  const handleLogout = () => {
-    alert("Do You want to Logout?");
-    alert("Logged Out!");
+  const logoutControl = async () => {
+    setTimeout(async () => {
+        try {
+        await axios.get("http://localhost:3000/api/student/logout-student", {
+          withCredentials: true,
+        });
+        navigate("/studentlogin");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    }, 1000);
   };
-
-const logoutControl = () => {
-  navigate("/studentlogin")
-}
-
 
   return (
     <div>
@@ -86,9 +89,11 @@ const logoutControl = () => {
             sidebar ? "flex-row space-x-4" : "flex-col space-y-4"
           }`}
         >
-          <Sun className="text-white w-8 h-8 -ml-1.5 cursor-pointer hover:text-yellow-400 transition-all" />
-          <button onClick={handleLogout}>
-            <LogOut onClick={logoutControl} className="text-red-600 w-8 h-8 cursor-pointer hover:text-gray-300 transition-all" />
+          <button>
+            <LogOut
+              onClick={logoutControl}
+              className="text-red-600 w-8 h-8 cursor-pointer hover:text-gray-300 transition-all"
+            />
           </button>
         </div>
       </div>

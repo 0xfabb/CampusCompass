@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
+
 const Idle = () => {
   const [name, setName] = useState("");
   const [servers, setServers] = useState();
