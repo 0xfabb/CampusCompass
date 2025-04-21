@@ -23,17 +23,15 @@ export const addMsgContorl = async (req, res) => {
 };
 
 export const getMsgControl = async (req, res) => {
-  const textId = Number(req.query.id);
+  const ClubName = req.query.club;
+  console.log("Checking for club name fetch", ClubName);
   try {
-    const textMsg = await Chat.findOne({
-      id: textId,
+    const allMessages = await Chat.find({
+     club: ClubName,
     });
-    const PlainText = textMsg.original_text;
-    const msg = textMsg.text;
-    const unHashedText = await bcrypt.compare(PlainText, msg);
+    console.log("Checking for the type of allMessages", allMessages);
     res.status(200).json({
-      msg: "Message found",
-      msg2: unHashedText,
+        messages: allMessages,
     });
   } catch (err) {
     return res.status(400).json({ 

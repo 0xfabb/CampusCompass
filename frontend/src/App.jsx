@@ -1,17 +1,18 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Servers from "./pages/servers";
+import Servers from "./pages/Servers";
 import Idle from "./pages/Idle";
 import Server from "./pages/Server";
 import LandingPage from "./pages/LandingPage";
 import AuthDashboard from "./pages/AuthDashboard";
-import CCSignup from "./pages/ccsignup";
-import CCLogin from "./pages/cclogin";
+import CCSignup from "./pages/CCsignup";
+import CCLogin from "./pages/CClogin";
 import CCDashboard from "./pages/CCDashboard";
 import RequireAuth from "./components/CheckAuth";
 import CheckAuthStudent from "./components/CheckAuthStudent";
 import StudentSignUp from "./pages/StudentSignUp";
 import StudentLogin from "./pages/StudentLogin";
+import AuthLogin from "./pages/AuthLogin";
 import { ManageClass, AnnouncementClass, ScheduleClass } from "./pages/CCDashboard";
 
 
@@ -49,7 +50,7 @@ function App() {
         <Route path="/manage-class" element={<ManageClass />} />
         <Route path="/announcement-class" element={<AnnouncementClass />} />
         <Route path="/schedule-class" element={<ScheduleClass />} />
-
+        <Route path="/authlogin" element={<AuthLogin />} />
       </Routes>
     </Router>
   );

@@ -2,15 +2,9 @@ import mongoose from "mongoose";
 
 const msgSchema = new mongoose.Schema(
   {
-    id: {
-      type: Number,
-      unique: true,
-      required: true,
-    },
     parent_id: {
       type: Number,
       unique: false,
-      required: true,
     },
     text: {
       type: String,

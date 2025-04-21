@@ -1,13 +1,12 @@
-import "dotenv/config"
-
+import "dotenv/config";
 import express from "express";
 import connectDB from "./config/db.js";
 import homeRoute from "./routes/home.js";
 import serverRoute from "./routes/club.js";
 import ccRoute from "./routes/ccpart.js";
-import authControlRoute from "./routes/ccfetch.js";
 import sendChatRoute from "./routes/sendChat.js";
 import studentRoute from "./routes/student.js";
+import authControlRoute from "./routes/auth.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -40,13 +39,10 @@ app.use((req, res, next) => {
 app.use("/", homeRoute);
 app.use("/api", serverRoute);
 app.use("/api", ccRoute);
-app.use("/api/authcontrol", authControlRoute);
+app.use("/api/auth", authControlRoute);
 app.use("/api/chat", sendChatRoute);
 app.use("/api/student", studentRoute);
-app.post("/api/remove-student", (req, res) => {
-  console.log("HIT");
-  res.send("Route is working");
-});
+
 
 
 

@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Users,
   Calendar,
@@ -7,15 +7,15 @@ import {
   Shield,
   BookOpen,
   CheckSquare,
-  Bell,
 } from "react-feather";
+import Chat from "../components/ui/Chat";
 
 export default function AuthDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
-
+  
   const stats = {
     users: 1254,
-    pendingApprovals: 12,
+    pendingApprovals: 18,
     activeEvents: 8,
     reports: 5,
   };
@@ -23,20 +23,22 @@ export default function AuthDashboard() {
   return (
     <div className="flex min-h-screen bg-dark-1 text-white">
       <div className="flex-1 p-8">
-        <header className="mb-8">
+        <header className="mb-8 flex justify-between">
           <h1 className="text-3xl font-bold">Authority Dashboard</h1>
-          <p>Manage your campus community and resources</p>
+          <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md cursor-pointer">
+            LogOut
+          </button>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 bg-dark-1">
           <StatCard
             icon={<Users />}
-            title="Registered Users"
+            title="Registered Students"
             value={stats.users}
           />
           <StatCard
             icon={<CheckSquare />}
-            title="Pending Approvals"
+            title="Pending Class Coordinator Approvals"
             value={stats.pendingApprovals}
           />
           <StatCard
@@ -68,18 +70,6 @@ export default function AuthDashboard() {
               label="Events & Announcements"
             />
             <TabButton
-              active={activeTab === "moderation"}
-              onClick={() => setActiveTab("moderation")}
-              icon={<Shield size={18} />}
-              label="Moderation"
-            />
-            <TabButton
-              active={activeTab === "resources"}
-              onClick={() => setActiveTab("resources")}
-              icon={<BookOpen size={18} />}
-              label="Resources"
-            />
-            <TabButton
               active={activeTab === "approvals"}
               onClick={() => setActiveTab("approvals")}
               icon={<CheckSquare size={18} />}
@@ -92,8 +82,6 @@ export default function AuthDashboard() {
           {activeTab === "overview" && <OverviewPanel />}
           {activeTab === "users" && <UserManagementPanel />}
           {activeTab === "events" && <EventsAnnouncementsPanel />}
-          {activeTab === "moderation" && <ModerationPanel />}
-          {activeTab === "resources" && <ResourcesPanel />}
           {activeTab === "approvals" && <ApprovalsPanel />}
         </div>
       </div>
@@ -155,15 +143,9 @@ function UserManagementPanel() {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        User & Community Management
+        Authority can manage the accounts of students through this section. 
       </h2>
-      <p className="text-gray-50">
-        Track registered students, faculty, and club members. Approve or suspend
-        accounts, manage roles, and oversee community activities.
-      </p>
-      <div className="mt-4">
-        <p className="text-gray-50">User management interface coming soon...</p>
-      </div>
+      <div className="mt-4"></div>
     </div>
   );
 }
@@ -171,66 +153,50 @@ function UserManagementPanel() {
 function EventsAnnouncementsPanel() {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Events & Announcements</h2>
-      <p className="text-gray-50">
-        Create, approve, and manage events, important notices, and college-wide
-        announcements with visibility settings.
-      </p>
-      <div className="mt-4">
-        <p className="text-gray-50">
-          Events & announcements interface coming soon...
-        </p>
-      </div>
+     <Chat />
     </div>
   );
 }
 
-function ModerationPanel() {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Moderation & Security</h2>
-      <p className="text-gray-50">
-        Monitor posts, discussions, and community interactions. Flag
-        inappropriate content and ensure a safe digital campus environment.
-      </p>
-      <div className="mt-4">
-        <p className="text-gray-50">Moderation interface coming soon...</p>
-      </div>
-    </div>
-  );
-}
 
-function ResourcesPanel() {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Resource Management</h2>
-      <p className="text-gray-50">
-        Manage shared resources like study materials, room bookings, and college
-        services within the platform.
-      </p>
-      <div className="mt-4">
-        <p className="text-gray-50">
-          Resource management interface coming soon...
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function ApprovalsPanel() {
+  const [ccArray, setCcArray] = useState([]);
+  useEffect(() => {
+    const fetchUVCC = async () => {
+      try {
+        const res = await axios.get("http://localhost:3001/api/auth/uvcc");
+        console.log(res.data);
+        const UVCCArray = res.data.data;
+        setCcArray(UVCCArray);
+      
+      } catch (error) {
+        console.log("This is error", error);
+      }
+    };
+    fetchUVCC();
+  }, [ApprovalsPanel]);
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        Automated Approvals & Permissions
+        Class Coordinators needed to be approved
       </h2>
-      <p className="text-gray-50">
-        Streamline approvals for clubs, events, and user requests with
-        customizable workflows.
-      </p>
       <div className="mt-4">
-        <p className="text-gray-50">
-          Approvals workflow interface coming soon...
-        </p>
+        {ccArray.map((cc) => {
+          return (
+            <div key={cc.id}>
+              <div className="w-96 h-18 rounded-2xl bg-dark-1 m-2 p-4 flex justify-between">
+                <p className="text-xl ml-1 mt-1 ">
+                  {" "}
+                  {cc.firstname} {cc.lastname} {cc.department} {cc.section}
+                </p>
+                <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md cursor-pointer">
+                  Verify
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
